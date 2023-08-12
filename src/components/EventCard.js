@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, onClick }) => {
   const classes = useStyles();
 
   const imageUrl =
     event.images.find((image) => image.ratio === "3_2")?.url || "";
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} onClick={onClick}>
       <CardActionArea>
         <img src={imageUrl} alt={event.name} className={classes.image} />
         <CardContent className={classes.cardContent}>

@@ -17,16 +17,21 @@ export const searchEventsFailure = (error) => ({
   payload: error,
 });
 
-export const searchEvents = (keyword) => async (dispatch) => {
+export const searchEvents = (keyword, category) => async (dispatch) => {
+  const params = {
+    keyword,
+    countryCode: "US",
+    apikey: API_KEY,
+  };
+  if (category) {
+    params.classificationName = category;
+  }
+
   try {
     const response = await axios.get(
       `https://app.ticketmaster.com/discovery/v2/events.json`,
       {
-        params: {
-          keyword,
-          countryCode: "US",
-          apikey: API_KEY,
-        },
+        params,
       }
     );
 

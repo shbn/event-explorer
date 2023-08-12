@@ -13,6 +13,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 
 import EventCard from "./EventCard";
 import { searchEvents } from "../redux/actions/eventActions";
+import EventModal from "./EvantModal";
 import { fetchCategories } from "../redux/actions/categoryActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +53,7 @@ const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const handleSearch = () => {
-    dispatch(searchEvents(searchKeyword));
+    dispatch(searchEvents(searchKeyword, selectedCategory));
   };
   const events = useSelector((state) => state.event.events);
 
@@ -64,6 +65,9 @@ const Home = () => {
     }
   }, [dispatch, categories]);
 
+  useEffect(() => {
+    handleSearch();
+  }, []);
   // console.log("Redux State categories:", categories);
 
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -78,6 +82,20 @@ const Home = () => {
       }
     });
   }
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [shortlists, setShortlists] = useState([]);
+
+  const handleEventCardClick = (event) => {
+    console.log("dd");
+    setSelectedEvent(event);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedEvent(null);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className={classes.root}>
@@ -107,6 +125,9 @@ const Home = () => {
             label="Select Category"
             variant="outlined"
           >
+            <MenuItem key="" value="">
+              All
+            </MenuItem>
             {categoryNames.map((category) => {
               return (
                 <MenuItem key={category} value={category}>
@@ -122,9 +143,25 @@ const Home = () => {
       </div>
       <div className={classes.resultsContainer}>
         {events.map((event) => (
-          <EventCard key={event.id} event={event} />
+          <EventCard
+            key={event.id}
+            event={event}
+            onClick={() => {
+              console.log(event);
+              handleEventCardClick(event);
+            }}
+          />
         ))}
       </div>
+      <EventModal
+        event={selectedEvent}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onShortlist={() => {
+          setShortlists([...shortlists, selectedEvent]);
+          handleCloseModal();
+        }}
+      />
     </div>
   );
 };
