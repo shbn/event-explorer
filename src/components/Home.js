@@ -10,11 +10,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
+import Box from "@material-ui/core/Box";
 
 import EventCard from "./EventCard";
 import { searchEvents } from "../redux/actions/eventActions";
 import EventModal from "./EvantModal";
 import { fetchCategories } from "../redux/actions/categoryActions";
+import ShortlistPopup from "./ShortlistPopup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     marginBottom: theme.spacing(3),
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   searchContainer: {
     display: "flex",
@@ -67,8 +72,7 @@ const Home = () => {
 
   useEffect(() => {
     handleSearch();
-  }, []);
-  // console.log("Redux State categories:", categories);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -87,7 +91,6 @@ const Home = () => {
   const [shortlists, setShortlists] = useState([]);
 
   const handleEventCardClick = (event) => {
-    console.log("dd");
     setSelectedEvent(event);
     setIsModalOpen(true);
   };
@@ -96,14 +99,29 @@ const Home = () => {
     setSelectedEvent(null);
     setIsModalOpen(false);
   };
+  const [shortlistPopupOpen, setShortlistPopupOpen] = useState(false);
+  const toggleShortlistPopup = () => {
+    setShortlistPopupOpen(!shortlistPopupOpen);
+  };
+  const shortlistCount = shortlists.length;
 
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6">Event Explorer</Typography>
+          <Typography variant="h3">Event Explorer</Typography>
         </Toolbar>
+        <Box>
+          <Button color="inherit" onClick={toggleShortlistPopup}>
+            Shortlisted Events ({shortlistCount})
+          </Button>
+        </Box>
       </AppBar>
+      <ShortlistPopup
+        isOpen={shortlistPopupOpen}
+        onClose={toggleShortlistPopup}
+        shortlistedEvents={shortlists}
+      />
       <div className={classes.searchContainer}>
         <TextField
           className={classes.searchInput}
@@ -142,16 +160,20 @@ const Home = () => {
         </Button>
       </div>
       <div className={classes.resultsContainer}>
-        {events.map((event) => (
-          <EventCard
-            key={event.id}
-            event={event}
-            onClick={() => {
-              console.log(event);
-              handleEventCardClick(event);
-            }}
-          />
-        ))}
+        {events.length === 0 ? (
+          <Typography variant="subtitle1">No events found</Typography>
+        ) : (
+          events.map((event) => (
+            <EventCard
+              key={event.id}
+              event={event}
+              onClick={() => {
+                console.log(event);
+                handleEventCardClick(event);
+              }}
+            />
+          ))
+        )}
       </div>
       <EventModal
         event={selectedEvent}

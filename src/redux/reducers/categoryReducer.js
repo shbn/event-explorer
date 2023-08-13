@@ -1,7 +1,3 @@
-// import axios from "axios";
-// import { API_KEY } from "../../constants";
-
-// Action types
 export const FETCH_CATEGORIES_SUCCESS = "FETCH_CATEGORIES_SUCCESS";
 export const FETCH_CATEGORIES_FAILURE = "FETCH_CATEGORIES_FAILURE";
 

@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    width: 300,
+    width: 200,
     margin: theme.spacing(2),
   },
   cardContent: {
@@ -15,34 +15,24 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     width: "100%",
-    height: 200,
+    height: 100,
     objectFit: "cover",
   },
 }));
 
-const EventCard = ({ event, onClick }) => {
+const ShortlistEventCard = ({ event }) => {
   const classes = useStyles();
 
   const imageUrl =
     event.images.find((image) => image.ratio === "3_2")?.url || "";
 
   return (
-    <Card className={classes.card} onClick={onClick}>
+    <Card className={classes.card}>
       <CardActionArea>
         <img src={imageUrl} alt={event.name} className={classes.image} />
         <CardContent className={classes.cardContent}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom>
             {event.name}
-          </Typography>
-
-          <Typography variant="body2" color="textPrimary">
-            {event.classifications[0]?.genre?.name}
-          </Typography>
-          <Typography variant="body2" color="textPrimary">
-            {event.dates.start.localDate} {event.dates.start.localTime}
-          </Typography>
-          <Typography variant="body2" color="textPrimary">
-            {event._embedded.venues[0]?.name}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -50,4 +40,4 @@ const EventCard = ({ event, onClick }) => {
   );
 };
 
-export default EventCard;
+export default ShortlistEventCard;

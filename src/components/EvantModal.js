@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxHeight: 400,
     objectFit: "cover",
+    marginBottom: "20px",
   },
 }));
 
@@ -48,9 +49,7 @@ const EventModal = ({ event, isOpen, onClose, onShortlist }) => {
           {event.name}
         </Typography>
         <img src={imageUrl} alt={event.name} className={classes.image} />
-        <Typography variant="body1" id="event-modal-description" gutterBottom>
-          Type: {event.type}
-        </Typography>
+
         <Typography variant="body1" gutterBottom>
           Genre: {event.classifications[0]?.genre?.name}
         </Typography>
@@ -70,7 +69,7 @@ const EventModal = ({ event, isOpen, onClose, onShortlist }) => {
         )}
 
         <Box className="footer" sx={{ margin: "20px", textAlign: "center" }}>
-          <Button onClick={onShortlist} variant="outlined" color="primary">
+          <Button onClick={onShortlist} variant="contained" color="primary">
             Shortlist
           </Button>
         </Box>
