@@ -125,7 +125,6 @@ const Home = () => {
               key={event.id}
               event={event}
               onClick={() => {
-                console.log(event);
                 handleEventCardClick(event);
               }}
             />

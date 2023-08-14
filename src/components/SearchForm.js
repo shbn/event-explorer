@@ -19,10 +19,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     minWidth: "220px",
   },
-  inputLabel: {
-    marginLeft: "13px",
-    marginTop: "-5px",
-  },
   searchButton: {
     marginTop: "10px",
   },
@@ -46,17 +42,23 @@ const SearchForm = ({
         value={searchKeyword}
         onChange={(e) => setSearchKeyword(e.target.value)}
         className={classes.searchInput}
+        id="search-events-input"
       />
-      <FormControl>
-        <InputLabel id="select-category-label" className={classes.inputLabel}>
+      <FormControl variant="outlined" className={classes.categorySelector}>
+        <InputLabel
+          htmlFor="select-category"
+          className={classes.inputLabel}
+          id="select-category-label"
+        >
           Select Category
         </InputLabel>
         <Select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
+          label="Select Category"
+          id="select-category"
           variant="outlined"
           className={classes.categorySelector}
-          label="Select Category"
         >
           <MenuItem key="" value="">
             All
