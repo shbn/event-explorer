@@ -7,8 +7,7 @@ Event Explorer is a web application that allows users to search and explore vari
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
+- [Data](#Data)
 
 ## Installation
 
