@@ -61,6 +61,12 @@ const Home = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  useEffect(() => {
+    if (categories.length > 0) {
+      handleSearch();
+    }
+  }, [selectedCategory]);
+
   const categoryNames = [];
   if (categories?.length) {
     categories.forEach((category) => {

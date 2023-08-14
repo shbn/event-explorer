@@ -33,6 +33,11 @@ const SearchForm = ({
   categoryNames,
 }) => {
   const classes = useStyles();
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <div>
@@ -41,6 +46,7 @@ const SearchForm = ({
         variant="outlined"
         value={searchKeyword}
         onChange={(e) => setSearchKeyword(e.target.value)}
+        onKeyDown={handleKeyDown}
         className={classes.searchInput}
         id="search-events-input"
       />
