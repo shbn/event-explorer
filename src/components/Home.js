@@ -14,7 +14,7 @@ import Box from "@material-ui/core/Box";
 
 import EventCard from "./EventCard";
 import { searchEvents } from "../redux/actions/eventActions";
-import EventModal from "./EvantModal";
+import EventModal from "./EventModal";
 import { fetchCategories } from "../redux/actions/categoryActions";
 import ShortlistPopup from "./ShortlistPopup";
 

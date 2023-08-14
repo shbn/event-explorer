@@ -22,6 +22,7 @@ const ShortlistPopup = ({ isOpen, onClose, shortlistedEvents }) => {
       anchorPosition={{ top: 100, left: window.innerWidth / 2 }}
       onClose={onClose}
       disableRestoreFocus
+      data-testid="popover"
     >
       <div className={classes.paper}>
         {shortlistedEvents.length === 0 ? (
