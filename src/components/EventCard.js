@@ -34,15 +34,19 @@ const EventCard = ({ event, onClick }) => {
           <Typography variant="h6" gutterBottom>
             {event.name}
           </Typography>
+          {event.classifications && (
+            <Typography variant="body2" color="textPrimary">
+              {event.classifications[0]?.genre?.name}
+            </Typography>
+          )}
+          {event.venues && (
+            <Typography variant="body2" color="textPrimary">
+              {event._embedded.venues[0]?.name}
+            </Typography>
+          )}
 
           <Typography variant="body2" color="textPrimary">
-            {event.classifications[0]?.genre?.name}
-          </Typography>
-          <Typography variant="body2" color="textPrimary">
             {event.dates.start.localDate} {event.dates.start.localTime}
-          </Typography>
-          <Typography variant="body2" color="textPrimary">
-            {event._embedded.venues[0]?.name}
           </Typography>
         </CardContent>
       </CardActionArea>

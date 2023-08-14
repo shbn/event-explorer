@@ -50,18 +50,27 @@ const EventModal = ({ event, isOpen, onClose, onShortlist }) => {
         </Typography>
         <img src={imageUrl} alt={event.name} className={classes.image} />
 
-        <Typography variant="body1" gutterBottom>
-          Genre: {event.classifications[0]?.genre?.name}
-        </Typography>
-        <Typography variant="body2" color="textSecondary">
-          Start Date: {event.dates.start.localDate}
-        </Typography>
-        <Typography variant="body2" color="textSecondary">
-          Start Time: {event.dates.start.localTime}
-        </Typography>
-        <Typography variant="body2" color="textSecondary">
-          Venue: {event._embedded.venues[0]?.name}
-        </Typography>
+        {event.classifications && (
+          <Typography variant="body1" gutterBottom>
+            Genre: {event.classifications[0]?.genre?.name}
+          </Typography>
+        )}
+        {event.venues && (
+          <Typography variant="body2" color="textSecondary">
+            Venue: {event._embedded.venues[0]?.name}
+          </Typography>
+        )}
+        {event.dates && (
+          <>
+            <Typography variant="body2" color="textSecondary">
+              Start Date: {event.dates.start?.localDate}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              Start Time: {event.dates.start?.localTime}
+            </Typography>
+          </>
+        )}
+
         {event.pleaseNote && (
           <Typography variant="body2" gutterBottom>
             Please Note: {event.pleaseNote}
