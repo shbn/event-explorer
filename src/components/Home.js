@@ -4,12 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
 import Box from "@material-ui/core/Box";
 
 import EventCard from "./EventCard";
@@ -17,6 +12,7 @@ import { searchEvents } from "../redux/actions/eventActions";
 import EventModal from "./EventModal";
 import { fetchCategories } from "../redux/actions/categoryActions";
 import ShortlistPopup from "./ShortlistPopup";
+import SearchForm from "./SearchForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,19 +30,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginBottom: theme.spacing(3),
   },
-  searchInput: {
-    marginRight: theme.spacing(2),
-    minWidth: "220px",
-  },
 
-  categorySelector: {
-    marginRight: theme.spacing(2),
-    minWidth: "220px",
-  },
-  inputLabel: {
-    marginLeft: theme.spacing(2),
-    marginTop: "-4px",
-  },
   resultsContainer: {
     display: "flex",
     flexWrap: "wrap",
@@ -123,41 +107,14 @@ const Home = () => {
         shortlistedEvents={shortlists}
       />
       <div className={classes.searchContainer}>
-        <TextField
-          className={classes.searchInput}
-          label="Search Events"
-          variant="outlined"
-          value={searchKeyword}
-          onChange={(e) => setSearchKeyword(e.target.value)}
+        <SearchForm
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          handleSearch={handleSearch}
+          categoryNames={categoryNames}
         />
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="select-category-label" className={classes.inputLabel}>
-            Select Category
-          </InputLabel>
-          <Select
-            labelId="select-category"
-            id="select-category"
-            className={classes.categorySelector}
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            label="Select Category"
-            variant="outlined"
-          >
-            <MenuItem key="" value="">
-              All
-            </MenuItem>
-            {categoryNames.map((category) => {
-              return (
-                <MenuItem key={category} value={category}>
-                  {category}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-        <Button variant="contained" color="primary" onClick={handleSearch}>
-          Search
-        </Button>
       </div>
       <div className={classes.resultsContainer}>
         {events.length === 0 ? (
